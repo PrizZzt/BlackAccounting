@@ -47,7 +47,12 @@ namespace BlackAccounting
 		/// Истрачено за данный день
 		/// </summary>
 		[IgnoreDataMember]
-		public decimal ThisDayValue { get; set; }
+		public decimal? ThisDayValue { get; set; }
+		/// <summary>
+		/// Истрачено за данный месяц
+		/// </summary>
+		[IgnoreDataMember]
+		public decimal? ThisMonthValue { get; set; }
 		/// <summary>
 		/// Истрачено всего
 		/// </summary>

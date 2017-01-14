@@ -33,8 +33,8 @@ namespace BlackAccounting
 
 			// Сортируем все данные и типы
 			Types = Types.OrderBy(rt => rt.ID).ToList();
-			Records = Records.OrderBy(r => r.ID).ToList();
-			
+			Records = Records.OrderBy(r => r.Date).ThenBy(r => r.ID).ToList();
+
 			// Перенумеровываем данные, номерами по порядку и без пропусков
 			for (int i = 0; i < Records.Count; i++)
 			{
@@ -43,13 +43,20 @@ namespace BlackAccounting
 
 				// Вычисляем контрольное значение
 				Records[i].ValueCheck = i == 0 ? null : (decimal?)(Records[i].AfterOperation - Records[i - 1].AfterOperation - Records[i].Value);
+
+				// Обновляем данные в вычисляемых полях
+				Records[i].ThisDayValue = i + 1 == Records.Count || Records[i + 1].Date != Records[i].Date
+					? (decimal?)Records.Where(r => r.Date == Records[i].Date && r.Value < 0 && r.ID <= Records[i].ID).Sum(r => -r.Value)
+					: null;
+
+				Records[i].ThisMonthValue = i + 1 == Records.Count || (Records[i + 1].Date.Month != Records[i].Date.Month || Records[i + 1].Date.Year != Records[i].Date.Year)
+					? (decimal?)Records.Where(r => r.Date.Month == Records[i].Date.Month && r.Date.Year == Records[i].Date.Year && r.Value < 0 && r.ID <= Records[i].ID).Sum(r => -r.Value)
+					: null;
 			}
 
 			// Обновляем данные в вычисляемых полях
 			foreach (var thisR in Records)
 			{
-				thisR.ThisDayValue = Records.Where(r => r.Date == thisR.Date && r.Value < 0 && r.ID <= thisR.ID).Sum(r => -r.Value);
-
 				thisR.Spent = Records.Where(r => r.Value < 0 && r.ID <= thisR.ID).Sum(r => -r.Value);
 
 				int daysPassed = Records.Where(r => r.ID <= thisR.ID).Select(r => r.Date).Distinct().Count();
