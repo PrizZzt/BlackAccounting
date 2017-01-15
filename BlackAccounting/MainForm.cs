@@ -30,9 +30,10 @@ namespace BlackAccounting
 
 		private void tsbtnAddRecord_Click(object sender, EventArgs e)
 		{
+			var firstRow = gvMain.FirstDisplayedScrollingRowIndex;
 			gvMain.DataSource = null;
-			
-			if (tsbtnChangeEdit.Checked)
+
+			if (tsbtnTypeEdit.Checked)
 			{
 				accounting.AddType();
 				gvMain.DataSource = accounting.Data.Types;
@@ -42,6 +43,7 @@ namespace BlackAccounting
 				accounting.AddRecord();
 				gvMain.DataSource = accounting.Data.Records;
 			}
+			gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 		}
 
 		private void tsbtnDelRecord_Click(object sender, EventArgs e)
@@ -51,9 +53,10 @@ namespace BlackAccounting
 			foreach (DataGridViewCell cell in gvMain.SelectedCells)
 				idToRemove.Add((int)cell.OwningRow.Cells["IDColumn"].Value);
 
+			var firstRow = gvMain.FirstDisplayedScrollingRowIndex;
 			gvMain.DataSource = null;
 
-			if (tsbtnChangeEdit.Checked)
+			if (tsbtnTypeEdit.Checked)
 			{
 				accounting.DelType(idToRemove);
 				gvMain.DataSource = accounting.Data.Types;
@@ -63,6 +66,7 @@ namespace BlackAccounting
 				accounting.DelRecord(idToRemove);
 				gvMain.DataSource = accounting.Data.Records;
 			}
+			gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 
 			accounting.Data.UpdateData();
 		}
@@ -85,7 +89,7 @@ namespace BlackAccounting
 						},
 						new DataGridViewTextBoxColumn
 						{
-							AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+							AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
 							DataPropertyName = "Value",
 							HeaderText = "Значение",
 							Name = "ValueColumn"
@@ -96,7 +100,7 @@ namespace BlackAccounting
 			}
 			else
 			{
-				if (tsbtnChangeEdit.Checked)
+				if (tsbtnTypeEdit.Checked)
 				{
 					columns = new DataGridViewColumn[]
 					{
@@ -218,6 +222,37 @@ namespace BlackAccounting
 
 			gvMain.Columns.Clear();
 			gvMain.Columns.AddRange(columns);
+
+			SetButtonsAvailability();
+		}
+
+		private void tsbtnChart_Click(object sender, EventArgs e)
+		{
+			using (ChartForm chartForm = new ChartForm(accounting.Data))
+			{
+				chartForm.ShowDialog();
+			}
+		}
+
+		private void tsbtnUpdate_Click(object sender, EventArgs e)
+		{
+			var firstRow = gvMain.FirstDisplayedScrollingRowIndex;
+			gvMain.DataSource = null;
+			accounting.Data.UpdateData();
+
+			gvMain.DataSource = tsbtnTypeEdit.Checked
+				? (object)accounting.Data.Types
+				: accounting.Data.Records;
+			
+			gvMain.FirstDisplayedScrollingRowIndex = firstRow;
+		}
+
+		private void SetButtonsAvailability()
+		{
+			tsbtnAdd.Enabled = tsbtnSettings.Checked == false;
+			tsbtnDel.Enabled = tsbtnSettings.Checked == false;
+			tsbtnUpdate.Enabled = tsbtnSettings.Checked == false && tsbtnTypeEdit.Checked == false;
+			tsbtnTypeEdit.Enabled = tsbtnSettings.Checked == false;
 		}
 	}
 }

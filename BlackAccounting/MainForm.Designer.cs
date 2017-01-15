@@ -30,12 +30,15 @@
 		{
 			this.ssMain = new System.Windows.Forms.StatusStrip();
 			this.tsMain = new System.Windows.Forms.ToolStrip();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.gvMain = new System.Windows.Forms.DataGridView();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.tsbtnAdd = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnDel = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tsbtnChangeEdit = new System.Windows.Forms.ToolStripButton();
+			this.tsbtnUpdate = new System.Windows.Forms.ToolStripButton();
+			this.tsbtnTypeEdit = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnSettings = new System.Windows.Forms.ToolStripButton();
-			this.gvMain = new System.Windows.Forms.DataGridView();
+			this.tsbtnChart = new System.Windows.Forms.ToolStripButton();
 			this.tsMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
 			this.SuspendLayout();
@@ -53,14 +56,41 @@
 			this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbtnAdd,
             this.tsbtnDel,
+            this.tsbtnUpdate,
             this.toolStripSeparator1,
-            this.tsbtnChangeEdit,
-            this.tsbtnSettings});
+            this.tsbtnTypeEdit,
+            this.tsbtnSettings,
+            this.toolStripSeparator2,
+            this.tsbtnChart});
 			this.tsMain.Location = new System.Drawing.Point(0, 0);
 			this.tsMain.Name = "tsMain";
 			this.tsMain.Size = new System.Drawing.Size(624, 25);
 			this.tsMain.TabIndex = 1;
 			this.tsMain.Text = "toolStrip1";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// gvMain
+			// 
+			this.gvMain.AllowUserToAddRows = false;
+			this.gvMain.AllowUserToResizeRows = false;
+			this.gvMain.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+			this.gvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.gvMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.gvMain.Location = new System.Drawing.Point(0, 25);
+			this.gvMain.Name = "gvMain";
+			this.gvMain.RowHeadersVisible = false;
+			this.gvMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+			this.gvMain.Size = new System.Drawing.Size(624, 395);
+			this.gvMain.TabIndex = 2;
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
 			// 
 			// tsbtnAdd
 			// 
@@ -82,21 +112,26 @@
 			this.tsbtnDel.Text = "Удалить запись";
 			this.tsbtnDel.Click += new System.EventHandler(this.tsbtnDelRecord_Click);
 			// 
-			// toolStripSeparator1
+			// tsbtnUpdate
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			this.tsbtnUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbtnUpdate.Image = global::BlackAccounting.Properties.Resources.lightning;
+			this.tsbtnUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbtnUpdate.Name = "tsbtnUpdate";
+			this.tsbtnUpdate.Size = new System.Drawing.Size(23, 22);
+			this.tsbtnUpdate.Text = "Обновить вычисляемые поля";
+			this.tsbtnUpdate.Click += new System.EventHandler(this.tsbtnUpdate_Click);
 			// 
-			// tsbtnChangeEdit
+			// tsbtnTypeEdit
 			// 
-			this.tsbtnChangeEdit.CheckOnClick = true;
-			this.tsbtnChangeEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tsbtnChangeEdit.Image = global::BlackAccounting.Properties.Resources.hierarchical_structure;
-			this.tsbtnChangeEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tsbtnChangeEdit.Name = "tsbtnChangeEdit";
-			this.tsbtnChangeEdit.Size = new System.Drawing.Size(23, 22);
-			this.tsbtnChangeEdit.Text = "Редактировать типы записей";
-			this.tsbtnChangeEdit.CheckedChanged += new System.EventHandler(this.gridSwitchData);
+			this.tsbtnTypeEdit.CheckOnClick = true;
+			this.tsbtnTypeEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbtnTypeEdit.Image = global::BlackAccounting.Properties.Resources.hierarchical_structure;
+			this.tsbtnTypeEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbtnTypeEdit.Name = "tsbtnTypeEdit";
+			this.tsbtnTypeEdit.Size = new System.Drawing.Size(23, 22);
+			this.tsbtnTypeEdit.Text = "Редактировать типы записей";
+			this.tsbtnTypeEdit.CheckedChanged += new System.EventHandler(this.gridSwitchData);
 			// 
 			// tsbtnSettings
 			// 
@@ -109,18 +144,15 @@
 			this.tsbtnSettings.Text = "Редактировать настройки";
 			this.tsbtnSettings.CheckedChanged += new System.EventHandler(this.gridSwitchData);
 			// 
-			// gvMain
+			// tsbtnChart
 			// 
-			this.gvMain.AllowUserToAddRows = false;
-			this.gvMain.AllowUserToResizeRows = false;
-			this.gvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.gvMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.gvMain.Location = new System.Drawing.Point(0, 25);
-			this.gvMain.Name = "gvMain";
-			this.gvMain.RowHeadersVisible = false;
-			this.gvMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-			this.gvMain.Size = new System.Drawing.Size(624, 395);
-			this.gvMain.TabIndex = 2;
+			this.tsbtnChart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbtnChart.Image = global::BlackAccounting.Properties.Resources.bar_chart;
+			this.tsbtnChart.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbtnChart.Name = "tsbtnChart";
+			this.tsbtnChart.Size = new System.Drawing.Size(23, 22);
+			this.tsbtnChart.Text = "Графики...";
+			this.tsbtnChart.Click += new System.EventHandler(this.tsbtnChart_Click);
 			// 
 			// MainForm
 			// 
@@ -148,9 +180,12 @@
 		private System.Windows.Forms.DataGridView gvMain;
 		private System.Windows.Forms.ToolStripButton tsbtnAdd;
 		private System.Windows.Forms.ToolStripButton tsbtnDel;
-		private System.Windows.Forms.ToolStripButton tsbtnChangeEdit;
+		private System.Windows.Forms.ToolStripButton tsbtnTypeEdit;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton tsbtnSettings;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripButton tsbtnChart;
+		private System.Windows.Forms.ToolStripButton tsbtnUpdate;
 	}
 }
 

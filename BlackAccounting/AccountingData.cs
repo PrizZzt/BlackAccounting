@@ -52,15 +52,11 @@ namespace BlackAccounting
 				Records[i].ThisMonthValue = i + 1 == Records.Count || (Records[i + 1].Date.Month != Records[i].Date.Month || Records[i + 1].Date.Year != Records[i].Date.Year)
 					? (decimal?)Records.Where(r => r.Date.Month == Records[i].Date.Month && r.Date.Year == Records[i].Date.Year && r.Value < 0 && r.ID <= Records[i].ID).Sum(r => -r.Value)
 					: null;
-			}
 
-			// Обновляем данные в вычисляемых полях
-			foreach (var thisR in Records)
-			{
-				thisR.Spent = Records.Where(r => r.Value < 0 && r.ID <= thisR.ID).Sum(r => -r.Value);
+				Records[i].Spent = Records.Where(r => r.Value < 0 && r.ID <= Records[i].ID).Sum(r => -r.Value);
 
-				int daysPassed = Records.Where(r => r.ID <= thisR.ID).Select(r => r.Date).Distinct().Count();
-				thisR.AvgForDay = thisR.Spent / (daysPassed == 0 ? 1 : daysPassed);
+				int daysPassed = (Records[i].Date - Records[0].Date).Days;
+				Records[i].AvgForDay = Records[i].Spent / (daysPassed == 0 ? 1 : daysPassed);
 			}
 
 			// Обнуляем тип записи для всех записей с недействительными типами записей

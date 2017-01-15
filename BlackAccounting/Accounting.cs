@@ -62,7 +62,7 @@ namespace BlackAccounting
 
 		public void AddRecord()
 		{
-			Data.Records.Add(new Record { ID = Data.Records.Select(r => r.ID)?.Max() + 1 ?? 0, Date = DateTime.Now, Value = 0, AfterOperation = 0, Description = string.Empty, TypeID = 0 });
+			Data.Records.Add(new Record { ID = Data.Records.Select(r => r.ID)?.Max() + 1 ?? 0, Date = DateTime.Now.Date, Value = 0, AfterOperation = 0, Description = string.Empty, TypeID = 0 });
 			Data.UpdateData();
 		}
 
