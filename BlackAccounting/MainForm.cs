@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace BlackAccounting
@@ -24,7 +23,11 @@ namespace BlackAccounting
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			gvMain.EndEdit();
-			accounting.Save();
+
+			accounting.ProtectedSave(settings.DataFilePath, "12345678", "87654321");
+			if (string.IsNullOrEmpty(settings.BackupFilePath) == false)
+				accounting.Save(settings.BackupFilePath);
+
 			settings.Save();
 		}
 

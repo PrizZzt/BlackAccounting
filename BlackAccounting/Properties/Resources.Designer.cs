@@ -75,7 +75,7 @@ namespace BlackAccounting.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap bar_chart {
             get {
-                object obj = ResourceManager.GetObject("bar-chart", resourceCulture);
+                object obj = ResourceManager.GetObject("bar_chart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

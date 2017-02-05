@@ -41,19 +41,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			chartArea1.Name = "ChartArea1";
 			this.chrtMain.ChartAreas.Add(chartArea1);
-			this.chrtMain.Location = new System.Drawing.Point(12, 12);
+			this.chrtMain.Location = new System.Drawing.Point(12, 39);
 			this.chrtMain.Name = "chrtMain";
-			this.chrtMain.Size = new System.Drawing.Size(625, 416);
+			this.chrtMain.Size = new System.Drawing.Size(778, 389);
 			this.chrtMain.TabIndex = 0;
 			// 
 			// cmbChartTypeSelect
 			// 
-			this.cmbChartTypeSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbChartTypeSelect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbChartTypeSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cmbChartTypeSelect.FormattingEnabled = true;
-			this.cmbChartTypeSelect.Location = new System.Drawing.Point(644, 13);
+			this.cmbChartTypeSelect.Location = new System.Drawing.Point(12, 12);
 			this.cmbChartTypeSelect.Name = "cmbChartTypeSelect";
-			this.cmbChartTypeSelect.Size = new System.Drawing.Size(146, 21);
+			this.cmbChartTypeSelect.Size = new System.Drawing.Size(778, 21);
 			this.cmbChartTypeSelect.TabIndex = 2;
 			this.cmbChartTypeSelect.SelectedIndexChanged += new System.EventHandler(this.cmbChartTypeSelect_SelectedIndexChanged);
 			// 

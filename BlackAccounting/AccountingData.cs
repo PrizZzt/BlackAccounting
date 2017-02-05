@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -7,6 +8,8 @@ namespace BlackAccounting
 	[DataContract]
 	public class AccountingData
 	{
+		[DataMember]
+		public DateTime LastSaveTime { get; private set; }
 		[DataMember]
 		public List<RecordType> Types { get; private set; }
 		[DataMember]
@@ -64,6 +67,11 @@ namespace BlackAccounting
 			{
 				record.TypeID = 0;
 			}
+		}
+
+		public void SetLastSaveTime()
+		{
+			LastSaveTime = DateTime.Now;
 		}
 	}
 }
