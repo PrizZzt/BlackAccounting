@@ -11,6 +11,8 @@ namespace BlackAccounting
 
 		public string DataFilePath => Values.FirstOrDefault(s => s.ID == "DataFilePath")?.Value?.ToString();
 		public string BackupFilePath => Values.FirstOrDefault(s => s.ID == "BackupFilePath")?.Value?.ToString();
+		public string Password => Values.FirstOrDefault(s => s.ID == "Password")?.Value?.ToString();
+		public string Iv => Values.FirstOrDefault(s => s.ID == "IV")?.Value?.ToString();
 
 		public Settings()
 		{
@@ -29,6 +31,18 @@ namespace BlackAccounting
 					ID = "BackupFilePath",
 					Description = "Путь к запасному файлу с данными",
 					Value = _config.AppSettings.Settings["BackupFilePath"].Value
+				},
+				new Setting
+				{
+					ID = "Password",
+					Description = "Ключ к файлу с данными",
+					Value = _config.AppSettings.Settings["Password"].Value
+				},
+				new Setting
+				{
+					ID = "IV",
+					Description = "Вектор инициализации",
+					Value = _config.AppSettings.Settings["IV"].Value
 				}
 			};
 		}
@@ -37,7 +51,9 @@ namespace BlackAccounting
 		{
 			_config.AppSettings.Settings["DataFilePath"].Value = DataFilePath;
 			_config.AppSettings.Settings["BackupFilePath"].Value = BackupFilePath;
-			
+			_config.AppSettings.Settings["Password"].Value = Password;
+			_config.AppSettings.Settings["IV"].Value = Iv;
+
 			_config.Save();
 		}
 	}

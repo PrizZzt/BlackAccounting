@@ -15,7 +15,7 @@ namespace BlackAccounting
 			gvMain.AutoGenerateColumns = false;
 
 			settings = new Settings();
-			accounting = new Accounting(settings.DataFilePath);
+			accounting = new Accounting(settings);
 
 			gridSwitchData(null, null);
 		}
@@ -24,7 +24,7 @@ namespace BlackAccounting
 		{
 			gvMain.EndEdit();
 
-			accounting.ProtectedSave(settings.DataFilePath, "12345678", "87654321");
+			accounting.ProtectedSave(settings.DataFilePath, settings.Password, settings.Iv);
 			if (string.IsNullOrEmpty(settings.BackupFilePath) == false)
 				accounting.Save(settings.BackupFilePath);
 

@@ -13,15 +13,17 @@ namespace BlackAccounting
 	{
 		public AccountingData Data;
 		private DESCryptoServiceProvider _csp;
+		private Settings _settings;
 
-		public Accounting(string fileName = null)
+		public Accounting(Settings settings)
 		{
 			Data = new AccountingData();
 			_csp = new DESCryptoServiceProvider();
+			_settings = settings;
 
-			if (string.IsNullOrEmpty(fileName) == false)
+			if (string.IsNullOrEmpty(_settings.DataFilePath) == false)
 			{
-				ProtectedLoad(fileName, "12345678", "87654321");
+				ProtectedLoad(_settings.DataFilePath, _settings.Password, _settings.Iv);
 			}
 		}
 
