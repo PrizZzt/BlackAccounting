@@ -66,7 +66,7 @@
 			this.Controls.Add(this.cmbChartTypeSelect);
 			this.Controls.Add(this.chrtMain);
 			this.Name = "ChartForm";
-			this.Text = "ChartForm";
+			this.Text = "Графики";
 			((System.ComponentModel.ISupportInitialize)(this.chrtMain)).EndInit();
 			this.ResumeLayout(false);
 

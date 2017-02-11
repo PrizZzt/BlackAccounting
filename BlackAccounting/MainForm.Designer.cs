@@ -31,14 +31,18 @@
 			this.ssMain = new System.Windows.Forms.StatusStrip();
 			this.tsMain = new System.Windows.Forms.ToolStrip();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.gvMain = new System.Windows.Forms.DataGridView();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.gvMain = new System.Windows.Forms.DataGridView();
 			this.tsbtnAdd = new System.Windows.Forms.ToolStripButton();
+			this.tsbtnEnter = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnDel = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnUpdate = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnTypeEdit = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnSettings = new System.Windows.Forms.ToolStripButton();
 			this.tsbtnChart = new System.Windows.Forms.ToolStripButton();
+			this.tsbtnFromBackup = new System.Windows.Forms.ToolStripButton();
+			this.tsbtnSave = new System.Windows.Forms.ToolStripButton();
 			this.tsMain.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
 			this.SuspendLayout();
@@ -61,7 +65,11 @@
             this.tsbtnTypeEdit,
             this.tsbtnSettings,
             this.toolStripSeparator2,
-            this.tsbtnChart});
+            this.tsbtnEnter,
+            this.tsbtnChart,
+            this.toolStripSeparator3,
+            this.tsbtnSave,
+            this.tsbtnFromBackup});
 			this.tsMain.Location = new System.Drawing.Point(0, 0);
 			this.tsMain.Name = "tsMain";
 			this.tsMain.Size = new System.Drawing.Size(624, 25);
@@ -72,6 +80,16 @@
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
 			// 
 			// gvMain
 			// 
@@ -87,11 +105,6 @@
 			this.gvMain.Size = new System.Drawing.Size(624, 395);
 			this.gvMain.TabIndex = 2;
 			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
 			// tsbtnAdd
 			// 
 			this.tsbtnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -101,6 +114,16 @@
 			this.tsbtnAdd.Size = new System.Drawing.Size(23, 22);
 			this.tsbtnAdd.Text = "Добавить запись";
 			this.tsbtnAdd.Click += new System.EventHandler(this.tsbtnAddRecord_Click);
+			// 
+			// tsbtnEnter
+			// 
+			this.tsbtnEnter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbtnEnter.Image = global::BlackAccounting.Properties.Resources.add_green;
+			this.tsbtnEnter.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbtnEnter.Name = "tsbtnEnter";
+			this.tsbtnEnter.Size = new System.Drawing.Size(23, 22);
+			this.tsbtnEnter.Text = "Ввод нескольких записей сразу...";
+			this.tsbtnEnter.Click += new System.EventHandler(this.tsbtnEnter_Click);
 			// 
 			// tsbtnDel
 			// 
@@ -154,6 +177,26 @@
 			this.tsbtnChart.Text = "Графики...";
 			this.tsbtnChart.Click += new System.EventHandler(this.tsbtnChart_Click);
 			// 
+			// tsbtnFromBackup
+			// 
+			this.tsbtnFromBackup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbtnFromBackup.Image = global::BlackAccounting.Properties.Resources.shuffle;
+			this.tsbtnFromBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbtnFromBackup.Name = "tsbtnFromBackup";
+			this.tsbtnFromBackup.Size = new System.Drawing.Size(23, 22);
+			this.tsbtnFromBackup.Text = "Взять данные из бэкапа";
+			this.tsbtnFromBackup.Click += new System.EventHandler(this.tsbtnFromBackup_Click);
+			// 
+			// tsbtnSave
+			// 
+			this.tsbtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tsbtnSave.Image = global::BlackAccounting.Properties.Resources.checked_1;
+			this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbtnSave.Name = "tsbtnSave";
+			this.tsbtnSave.Size = new System.Drawing.Size(23, 22);
+			this.tsbtnSave.Text = "toolStripButton1";
+			this.tsbtnSave.Click += new System.EventHandler(this.tsbtnSave_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,6 +229,10 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripButton tsbtnChart;
 		private System.Windows.Forms.ToolStripButton tsbtnUpdate;
+		private System.Windows.Forms.ToolStripButton tsbtnEnter;
+		private System.Windows.Forms.ToolStripButton tsbtnFromBackup;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripButton tsbtnSave;
 	}
 }
 

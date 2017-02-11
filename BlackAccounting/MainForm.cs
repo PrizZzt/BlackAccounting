@@ -6,16 +6,16 @@ namespace BlackAccounting
 {
 	public partial class MainForm : Form
 	{
-		private Accounting accounting;
-		private Settings settings;
+		private Accounting _accounting;
+		private Settings _settings;
 
 		public MainForm()
 		{
 			InitializeComponent();
 			gvMain.AutoGenerateColumns = false;
 
-			settings = new Settings();
-			accounting = new Accounting(settings);
+			_settings = new Settings();
+			_accounting = new Accounting(_settings);
 
 			gridSwitchData(null, null);
 		}
@@ -24,11 +24,11 @@ namespace BlackAccounting
 		{
 			gvMain.EndEdit();
 
-			accounting.ProtectedSave(settings.DataFilePath, settings.Password, settings.Iv);
-			if (string.IsNullOrEmpty(settings.BackupFilePath) == false)
-				accounting.Save(settings.BackupFilePath);
+			_accounting.ProtectedSave(_settings.DataFilePath, _settings.Password, _settings.Iv);
+			if (string.IsNullOrEmpty(_settings.BackupFilePath) == false)
+				_accounting.Save(_settings.BackupFilePath);
 
-			settings.Save();
+			_settings.Save();
 		}
 
 		private void tsbtnAddRecord_Click(object sender, EventArgs e)
@@ -38,15 +38,17 @@ namespace BlackAccounting
 
 			if (tsbtnTypeEdit.Checked)
 			{
-				accounting.AddType();
-				gvMain.DataSource = accounting.Data.Types;
+				_accounting.AddType();
+				gvMain.DataSource = _accounting.Data.Types;
 			}
 			else
 			{
-				accounting.AddRecord();
-				gvMain.DataSource = accounting.Data.Records;
+				_accounting.AddRecord();
+				gvMain.DataSource = _accounting.Data.Records;
 			}
-			gvMain.FirstDisplayedScrollingRowIndex = firstRow;
+
+			if (firstRow >= 0)
+				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 		}
 
 		private void tsbtnDelRecord_Click(object sender, EventArgs e)
@@ -61,17 +63,19 @@ namespace BlackAccounting
 
 			if (tsbtnTypeEdit.Checked)
 			{
-				accounting.DelType(idToRemove);
-				gvMain.DataSource = accounting.Data.Types;
+				_accounting.DelType(idToRemove);
+				gvMain.DataSource = _accounting.Data.Types;
 			}
 			else
 			{
-				accounting.DelRecord(idToRemove);
-				gvMain.DataSource = accounting.Data.Records;
+				_accounting.DelRecord(idToRemove);
+				gvMain.DataSource = _accounting.Data.Records;
 			}
-			gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 
-			accounting.Data.UpdateData();
+			if (firstRow > gvMain.Rows.Count)
+				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
+
+			_accounting.Data.UpdateData();
 		}
 
 		private void gridSwitchData(object sender, EventArgs e)
@@ -99,7 +103,7 @@ namespace BlackAccounting
 						}
 					};
 
-				gvMain.DataSource = settings.Values;
+				gvMain.DataSource = _settings.Values;
 			}
 			else
 			{
@@ -124,7 +128,7 @@ namespace BlackAccounting
 						}
 					};
 
-					gvMain.DataSource = accounting.Data.Types;
+					gvMain.DataSource = _accounting.Data.Types;
 				}
 				else
 				{
@@ -158,7 +162,7 @@ namespace BlackAccounting
 							DataPropertyName = "TypeID",
 							HeaderText = "Тип",
 							Name = "TypeColumn",
-							DataSource = accounting.Data.Types,
+							DataSource = _accounting.Data.Types,
 							ValueMember = "ID",
 							DisplayMember = "Description"
 						},
@@ -219,7 +223,7 @@ namespace BlackAccounting
 						}
 					};
 
-					gvMain.DataSource = accounting.Data.Records;
+					gvMain.DataSource = _accounting.Data.Records;
 				}
 			}
 
@@ -231,7 +235,7 @@ namespace BlackAccounting
 
 		private void tsbtnChart_Click(object sender, EventArgs e)
 		{
-			using (ChartForm chartForm = new ChartForm(accounting.Data))
+			using (ChartForm chartForm = new ChartForm(_accounting.Data))
 			{
 				chartForm.ShowDialog();
 			}
@@ -241,21 +245,64 @@ namespace BlackAccounting
 		{
 			var firstRow = gvMain.FirstDisplayedScrollingRowIndex;
 			gvMain.DataSource = null;
-			accounting.Data.UpdateData();
+			_accounting.Data.UpdateData();
 
 			gvMain.DataSource = tsbtnTypeEdit.Checked
-				? (object)accounting.Data.Types
-				: accounting.Data.Records;
-			
-			gvMain.FirstDisplayedScrollingRowIndex = firstRow;
+				? (object)_accounting.Data.Types
+				: _accounting.Data.Records;
+
+			if (firstRow > gvMain.Rows.Count)
+				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 		}
 
 		private void SetButtonsAvailability()
 		{
 			tsbtnAdd.Enabled = tsbtnSettings.Checked == false;
+			tsbtnEnter.Enabled = tsbtnSettings.Checked == false && tsbtnTypeEdit.Checked == false;
 			tsbtnDel.Enabled = tsbtnSettings.Checked == false;
 			tsbtnUpdate.Enabled = tsbtnSettings.Checked == false && tsbtnTypeEdit.Checked == false;
 			tsbtnTypeEdit.Enabled = tsbtnSettings.Checked == false;
+		}
+
+		private void tsbtnEnter_Click(object sender, EventArgs e)
+		{
+			using (EnterForm enterForm = new EnterForm())
+			{
+				enterForm.ShowDialog();
+			}
+
+			if (EnterForm.Values.Count > 0)
+			{
+				foreach (Record item in EnterForm.Values)
+					_accounting.AddRecord(item);
+
+				tsbtnUpdate_Click(null, null);
+			}
+		}
+
+		private void tsbtnFromBackup_Click(object sender, EventArgs e)
+		{
+			if (MessageBox.Show("Вы уверены, что хотите восстановить данные из бэкапа", "Внимание", MessageBoxButtons.OKCancel) != DialogResult.OK)
+				return;
+
+			_accounting.Load(_settings.BackupFilePath, true);
+
+			if (_accounting.Data.LastSaveTime > _accounting.Backup.LastSaveTime)
+			{
+				if (MessageBox.Show("Дата последнего сохранения бэкапа меньше текущих данных, все равно заменить данные?", "Внимание", MessageBoxButtons.YesNo) != DialogResult.Yes)
+				{
+					_accounting.Backup = null;
+					return;
+				}
+			}
+
+			_accounting.Data = _accounting.Backup;
+			tsbtnUpdate_Click(null, null);
+		}
+
+		private void tsbtnSave_Click(object sender, EventArgs e)
+		{
+			MainForm_FormClosing(null, null);
 		}
 	}
 }

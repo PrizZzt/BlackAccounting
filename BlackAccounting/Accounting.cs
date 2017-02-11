@@ -12,6 +12,7 @@ namespace BlackAccounting
 	public class Accounting
 	{
 		public AccountingData Data;
+		public AccountingData Backup;
 		private DESCryptoServiceProvider _csp;
 		private Settings _settings;
 
@@ -23,11 +24,11 @@ namespace BlackAccounting
 
 			if (string.IsNullOrEmpty(_settings.DataFilePath) == false)
 			{
-				ProtectedLoad(_settings.DataFilePath, _settings.Password, _settings.Iv);
+				ProtectedLoad(_settings.DataFilePath, _settings.Password, _settings.Iv, false);
 			}
 		}
 
-		public void Load(string fileName)
+		public void Load(string fileName, bool isBackup)
 		{
 			if (string.IsNullOrEmpty(fileName))
 				throw new FileNotFoundException();
@@ -37,13 +38,16 @@ namespace BlackAccounting
 				DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(AccountingData));
 				using (FileStream fs = new FileStream(fileName, FileMode.Open))
 				{
-					Data = (AccountingData)serializer.ReadObject(fs);
+					if (isBackup)
+						Backup = (AccountingData)serializer.ReadObject(fs);
+					else
+						Data = (AccountingData)serializer.ReadObject(fs);
 				}
 			}
 			Data.UpdateData();
 		}
 
-		public void ProtectedLoad(string fileName, string key, string iv)
+		public void ProtectedLoad(string fileName, string key, string iv, bool isBackup)
 		{
 			if (string.IsNullOrEmpty(fileName))
 				throw new FileNotFoundException();
@@ -62,7 +66,10 @@ namespace BlackAccounting
 				using (CryptoStream cs = new CryptoStream(fs, _csp.CreateDecryptor(bKey, bIV), CryptoStreamMode.Read))
 				using (GZipStream zs = new GZipStream(cs, CompressionMode.Decompress))
 				{
-					Data = (AccountingData)serializer.ReadObject(zs);
+					if (isBackup)
+						Backup = (AccountingData)serializer.ReadObject(zs);
+					else
+						Data = (AccountingData)serializer.ReadObject(zs);
 				}
 			}
 			Data.UpdateData();
@@ -120,13 +127,20 @@ namespace BlackAccounting
 
 		public void AddRecord()
 		{
-			Data.Records.Add(new Record { ID = Data.Records.Select(r => r.ID)?.Max() + 1 ?? 0, Date = DateTime.Now.Date, Value = 0, AfterOperation = 0, Description = string.Empty, TypeID = 0 });
+			Data.Records.Add(new Record { ID = Data.Records.Count>0?Data.Records.Select(r => r.ID).Max() + 1 : 0, Date = DateTime.Now.Date, Value = 0, AfterOperation = 0, Description = string.Empty, TypeID = 0 });
+			Data.UpdateData();
+		}
+
+		public void AddRecord(Record item)
+		{
+			item.ID = Data.Records.Count > 0 ? Data.Records.Select(r => r.ID).Max() + 1 : 0;
+			Data.Records.Add(item);
 			Data.UpdateData();
 		}
 
 		public void AddType()
 		{
-			Data.Types.Add(new RecordType { ID = Data.Types.Select(rt => rt.ID)?.Max() + 1 ?? 0, Description = string.Empty });
+			Data.Types.Add(new RecordType { ID = Data.Types.Count > 0 ? Data.Types.Select(r => r.ID).Max() + 1 : 0, Description = string.Empty });
 			Data.UpdateData();
 		}
 
