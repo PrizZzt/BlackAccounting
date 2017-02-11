@@ -194,7 +194,7 @@
 			this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tsbtnSave.Name = "tsbtnSave";
 			this.tsbtnSave.Size = new System.Drawing.Size(23, 22);
-			this.tsbtnSave.Text = "toolStripButton1";
+			this.tsbtnSave.Text = "Сохранить";
 			this.tsbtnSave.Click += new System.EventHandler(this.tsbtnSave_Click);
 			// 
 			// MainForm
