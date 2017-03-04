@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace BlackAccounting
 {
@@ -15,5 +16,10 @@ namespace BlackAccounting
 		/// </summary>
 		[DataMember]
 		public string Description { get; set; }
+		/// <summary>
+		/// Цвет представления типа
+		/// </summary>
+		[DataMember]
+		public Color Color { get; set; }
 	}
 }

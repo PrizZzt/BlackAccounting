@@ -47,10 +47,15 @@ namespace BlackAccounting
 				(data, series) =>
 				{
 					_series.ChartType = SeriesChartType.Pie;
-					foreach (var r in data.GroupBy(r => r.TypeID).Select(gr => new { Key = _data.Types[gr.Key].Description, Value = gr.Where(r => r.Value < 0).Sum(r => -r.Value) }).OrderBy(r=>r.Value))
+					foreach (var r in data.GroupBy(r => r.TypeID).Select(gr => new { Key = gr.Key, Value = gr.Where(r => r.Value < 0).Sum(r => -r.Value) }).OrderBy(r => r.Value))
 					{
 						if (r.Value > 0)
-							series.Points.AddXY(r.Key, r.Value);
+						{
+							DataPoint newPoint = new DataPoint();
+							newPoint.SetValueXY(_data.Types[r.Key].Description, r.Value);
+							newPoint.Color = _data.Types[r.Key].Color;
+							series.Points.Add(newPoint);
+						}
 					}
 				}
 				));

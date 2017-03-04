@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BlackAccounting
@@ -85,23 +86,23 @@ namespace BlackAccounting
 			if (tsbtnSettings.Checked)
 			{
 				columns = new DataGridViewColumn[]
+				{
+					new DataGridViewTextBoxColumn
 					{
-						new DataGridViewTextBoxColumn
-						{
-							AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-							DataPropertyName = "Description",
-							HeaderText = "Параметр",
-							Name = "DescriptionColumn",
-							ReadOnly = true
-						},
-						new DataGridViewTextBoxColumn
-						{
-							AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-							DataPropertyName = "Value",
-							HeaderText = "Значение",
-							Name = "ValueColumn"
-						}
-					};
+						AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+						DataPropertyName = "Description",
+						HeaderText = "Параметр",
+						Name = "DescriptionColumn",
+						ReadOnly = true
+					},
+					new DataGridViewTextBoxColumn
+					{
+						AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+						DataPropertyName = "Value",
+						HeaderText = "Значение",
+						Name = "ValueColumn"
+					}
+				};
 
 				gvMain.DataSource = _settings.Values;
 			}
@@ -125,6 +126,13 @@ namespace BlackAccounting
 							DataPropertyName = "Description",
 							HeaderText = "Описание",
 							Name = "DescriptionColumn"
+						},
+						new DataGridViewButtonColumn
+						{
+							AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+							DataPropertyName = "Color",
+							HeaderText = "Цвет",
+							Name = "ColorColumn"
 						}
 					};
 
@@ -230,6 +238,14 @@ namespace BlackAccounting
 			gvMain.Columns.Clear();
 			gvMain.Columns.AddRange(columns);
 
+			if (gvMain.Columns["ColorColumn"] != null)
+			{
+				foreach (DataGridViewRow row in gvMain.Rows)
+				{
+					row.DefaultCellStyle.BackColor = (Color)row.Cells["ColorColumn"].Value;
+				}
+			}
+
 			SetButtonsAvailability();
 		}
 
@@ -303,6 +319,23 @@ namespace BlackAccounting
 		private void tsbtnSave_Click(object sender, EventArgs e)
 		{
 			MainForm_FormClosing(null, null);
+		}
+
+		private void gvMain_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0) return;
+
+			if (e.ColumnIndex == gvMain.Columns["ColorColumn"].Index)
+			{
+				using (ColorDialog colorDialog = new ColorDialog())
+				{
+					if (colorDialog.ShowDialog() == DialogResult.OK)
+					{
+						gvMain[e.ColumnIndex, e.RowIndex].Value = colorDialog.Color;
+						gvMain.Rows[e.RowIndex].DefaultCellStyle.BackColor = colorDialog.Color;
+					}
+				}
+			}
 		}
 	}
 }
