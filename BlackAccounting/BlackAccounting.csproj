@@ -57,6 +57,7 @@
     <Compile Include="ChartForm.Designer.cs">
       <DependentUpon>ChartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChartParameters.cs" />
     <Compile Include="EnterForm.cs">
       <SubType>Form</SubType>
     </Compile>
