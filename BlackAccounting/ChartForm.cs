@@ -60,19 +60,21 @@ namespace BlackAccounting
 			cmbChartTypeSelect.DisplayMember = "Description";
 		}
 
-		private void cmbChartTypeSelect_SelectedIndexChanged(object sender, EventArgs e)
+		private void rebuildChart(object sender, EventArgs e)
 		{
 			var selected = (ChartParameters)cmbChartTypeSelect.SelectedValue;
 
+			Func<Record, bool> dateWhere = r => (dtpFrom.Checked ? (r.Date > dtpFrom.Value) : true) && (dtpTo.Checked ? (r.Date < dtpTo.Value) : true);
+
 			_series.Points.Clear();
 			if (selected.FullFillAction != null)
-				selected.FullFillAction(_data.Records, _series);
+				selected.FullFillAction(_data.Records.Where(dateWhere), _series);
 			else
 			{
 				if (selected.FillAction != null)
 				{
 					_series.ChartType = selected.ChartType;
-					foreach (Record r in _data.Records)
+					foreach (Record r in _data.Records.Where(dateWhere))
 					{
 						selected.FillAction(r);
 					}
