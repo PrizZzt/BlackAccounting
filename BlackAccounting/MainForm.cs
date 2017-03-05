@@ -325,7 +325,7 @@ namespace BlackAccounting
 		{
 			if (e.RowIndex < 0) return;
 
-			if (e.ColumnIndex == gvMain.Columns["ColorColumn"].Index)
+			if (gvMain.Columns["ColorColumn"]!=null && e.ColumnIndex == gvMain.Columns["ColorColumn"].Index)
 			{
 				using (ColorDialog colorDialog = new ColorDialog())
 				{
