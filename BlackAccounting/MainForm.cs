@@ -263,9 +263,19 @@ namespace BlackAccounting
 			gvMain.DataSource = null;
 			_accounting.Data.UpdateData();
 
-			gvMain.DataSource = tsbtnTypeEdit.Checked
-				? (object)_accounting.Data.Types
-				: _accounting.Data.Records;
+			if (tsbtnTypeEdit.Checked)
+			{
+				gvMain.DataSource = _accounting.Data.Types;
+			}
+			else
+			{
+				var TypeColumn = (DataGridViewComboBoxColumn)gvMain.Columns["TypeColumn"];
+				TypeColumn.DataSource = _accounting.Data.Types;
+				TypeColumn.ValueMember = "ID";
+				TypeColumn.DisplayMember = "Description";
+
+				gvMain.DataSource = _accounting.Data.Records;
+			}
 
 			if (firstRow > gvMain.Rows.Count)
 				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
