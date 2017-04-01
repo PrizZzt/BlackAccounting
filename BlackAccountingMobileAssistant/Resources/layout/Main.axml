@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:orientation="vertical"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/linearLayout">
+    <TextView
+        p1:text="Адресант"
+        p1:textAppearance="?android:attr/textAppearanceSmall"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/bankNameTextView"
+        p1:paddingBottom="10px"
+        p1:paddingLeft="10px"
+        p1:paddingRight="10px"
+        p1:paddingTop="10px" />
+    <EditText
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/bankNameEditText" />
+    <TextView
+        p1:text="Папка выгрузки"
+        p1:textAppearance="?android:attr/textAppearanceSmall"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/targetFolderTextView"
+        p1:paddingBottom="10px"
+        p1:paddingLeft="10px"
+        p1:paddingRight="10px"
+        p1:paddingTop="10px" />
+    <EditText
+        p1:layout_width="match_parent"
+        p1:id="@+id/targetFolderEditText"
+        p1:layout_height="wrap_content" />
+    <TextView
+        p1:text="Имя файла"
+        p1:textAppearance="?android:attr/textAppearanceSmall"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/fileNameTextView"
+        p1:paddingLeft="10px"
+        p1:paddingRight="10px"
+        p1:paddingBottom="10px"
+        p1:paddingTop="10px" />
+    <EditText
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/fileNameEditText" />
+    <Button
+        p1:text="Выгрузить"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/loadButton" />
+</LinearLayout>
