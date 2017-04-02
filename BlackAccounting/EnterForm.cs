@@ -71,8 +71,8 @@ namespace BlackAccounting
 										continue;
 									}
 									value = lineSplit[1].Replace(" ", "");
-									description = lineSplit[3].Substring(0, lineSplit[3].Length - 20);
-									date = DateTime.Parse(lineSplit[3].Substring(lineSplit[3].Length - 19, 19), CultureInfo.InvariantCulture);
+									description = lineSplit[3];
+									date = DateTime.Parse(lineSplit[0], CultureInfo.InvariantCulture);
 									afterOperation = lineSplit[4].Replace(" ", "");
 									line = $"{date}\t-{value}\t{description}\t{afterOperation}";
 									txtEnter.Text += line + Environment.NewLine;
@@ -86,7 +86,7 @@ namespace BlackAccounting
 									}
 									value = lineSplit[2].Replace(",", "");
 									description = lineSplit[1];
-									date = DateTime.Parse(lineSplit[0],CultureInfo.InvariantCulture);
+									date = DateTime.Parse(lineSplit[0], CultureInfo.InvariantCulture);
 									afterOperation = lineSplit[3].Replace(" ", "");
 									line = $"{date}\t{value}\t{description}\t{afterOperation}";
 									txtEnter.Text += line + Environment.NewLine;
@@ -99,8 +99,8 @@ namespace BlackAccounting
 										continue;
 									}
 									value = lineSplit[1].Replace(" ", "");
-									description = lineSplit[3].Substring(0, lineSplit[3].Length - 20);
-									date = DateTime.Parse(lineSplit[3].Substring(lineSplit[3].Length - 19, 19), CultureInfo.InvariantCulture);
+									description = lineSplit[3];
+									date = DateTime.Parse(lineSplit[0], CultureInfo.InvariantCulture);
 									afterOperation = lineSplit[4].Replace(" ", "");
 									line = $"{date}\t-{value}\t{description}\t{afterOperation}";
 									txtEnter.Text += line + Environment.NewLine;

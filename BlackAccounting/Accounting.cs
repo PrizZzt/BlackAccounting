@@ -133,9 +133,13 @@ namespace BlackAccounting
 
 		public void AddRecord(Record item)
 		{
-			item.ID = Data.Records.Count > 0 ? Data.Records.Select(r => r.ID).Max() + 1 : 0;
-			Data.Records.Add(item);
-			Data.UpdateData();
+			if (Data.Records.Count(r => r.Date == item.Date) == 0)
+			{
+				item.ID = Data.Records.Count > 0 ? Data.Records.Select(r => r.ID).Max() + 1 : 0;
+
+				Data.Records.Add(item);
+				Data.UpdateData();
+			}
 		}
 
 		public void AddType()

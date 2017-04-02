@@ -48,7 +48,7 @@ namespace BlackAccounting
 				Records[i].ValueCheck = i == 0 ? null : (decimal?)(Records[i].AfterOperation - Records[i - 1].AfterOperation - Records[i].Value);
 
 				// Обновляем данные в вычисляемых полях
-				Records[i].ThisDayValue = i + 1 == Records.Count || Records[i + 1].Date != Records[i].Date
+				Records[i].ThisDayValue = i + 1 == Records.Count || Records[i + 1].Date.Date != Records[i].Date.Date
 					? (decimal?)Records.Where(r => r.Date == Records[i].Date && r.Value < 0 && r.ID <= Records[i].ID).Sum(r => -r.Value)
 					: null;
 

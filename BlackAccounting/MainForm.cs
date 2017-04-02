@@ -72,7 +72,7 @@ namespace BlackAccounting
 				gvMain.DataSource = _accounting.Data.Records;
 			}
 
-			if (firstRow > gvMain.Rows.Count)
+			if (firstRow >= 0 && gvMain.Rows.Count > 0)
 				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 
 			_accounting.Data.UpdateData();
