@@ -33,6 +33,7 @@
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.lbErrors = new System.Windows.Forms.ListBox();
 			this.lblExplanationBold = new System.Windows.Forms.Label();
+			this.btnAddFromFile = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// lblExplanation
@@ -40,9 +41,9 @@
 			this.lblExplanation.AutoSize = true;
 			this.lblExplanation.Location = new System.Drawing.Point(126, 9);
 			this.lblExplanation.Name = "lblExplanation";
-			this.lblExplanation.Size = new System.Drawing.Size(353, 13);
+			this.lblExplanation.Size = new System.Drawing.Size(357, 13);
 			this.lblExplanation.TabIndex = 0;
-			this.lblExplanation.Text = "dd.MM.yyyy[ hh:mm:ss] <TAB> 999[.99] <TAB> AAAAAA <TAB> 999[.99]";
+			this.lblExplanation.Text = "dd.MM.yyyy[ HH:mm:ss] <TAB> 999[.99] <TAB> AAAAAA <TAB> 999[.99]";
 			// 
 			// txtEnter
 			// 
@@ -52,6 +53,7 @@
 			this.txtEnter.Location = new System.Drawing.Point(12, 41);
 			this.txtEnter.Multiline = true;
 			this.txtEnter.Name = "txtEnter";
+			this.txtEnter.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtEnter.Size = new System.Drawing.Size(760, 395);
 			this.txtEnter.TabIndex = 1;
 			this.txtEnter.TabStop = false;
@@ -89,11 +91,24 @@
 			this.lblExplanationBold.TabIndex = 4;
 			this.lblExplanationBold.Text = "Формат строки :";
 			// 
+			// btnAddFromFile
+			// 
+			this.btnAddFromFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAddFromFile.Location = new System.Drawing.Point(533, 12);
+			this.btnAddFromFile.Name = "btnAddFromFile";
+			this.btnAddFromFile.Size = new System.Drawing.Size(131, 23);
+			this.btnAddFromFile.TabIndex = 5;
+			this.btnAddFromFile.TabStop = false;
+			this.btnAddFromFile.Text = "Добавить из файла...";
+			this.btnAddFromFile.UseVisualStyleBackColor = true;
+			this.btnAddFromFile.Click += new System.EventHandler(this.btnAddFromFile_Click);
+			// 
 			// EnterForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(784, 562);
+			this.Controls.Add(this.btnAddFromFile);
 			this.Controls.Add(this.lblExplanationBold);
 			this.Controls.Add(this.lbErrors);
 			this.Controls.Add(this.txtEnter);
@@ -113,5 +128,6 @@
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.ListBox lbErrors;
 		private System.Windows.Forms.Label lblExplanationBold;
+		private System.Windows.Forms.Button btnAddFromFile;
 	}
 }

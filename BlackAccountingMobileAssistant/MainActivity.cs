@@ -7,6 +7,10 @@ using Android.Database;
 using System.IO;
 using System.Text;
 using Plugin.Settings;
+using System;
+using Android.Text.Format;
+using System.Globalization;
+using Android.Icu.Text;
 
 namespace BlackAccountingMobileAssistant
 {
@@ -26,7 +30,7 @@ namespace BlackAccountingMobileAssistant
 			EditText etFileName = FindViewById<EditText>(Resource.Id.fileNameEditText);
 
 			etBankName.Text = CrossSettings.Current.GetValueOrDefault("BankName", "SDM-BANK");
-			etTargetFolder.Text = CrossSettings.Current.GetValueOrDefault("TargetFolder", Environment.ExternalStorageDirectory.Path);
+			etTargetFolder.Text = CrossSettings.Current.GetValueOrDefault("TargetFolder", Android.OS.Environment.ExternalStorageDirectory.Path);
 			etFileName.Text = CrossSettings.Current.GetValueOrDefault("FileName", "blackAccounting.data");
 
 			btnLoad.Click += (s, e) =>
@@ -58,9 +62,12 @@ namespace BlackAccountingMobileAssistant
 			{
 				while (c.MoveToNext())
 				{
+					long ms = c.GetLong(c.GetColumnIndexOrThrow("date"));
+					DateTime smsDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(ms).ToLocalTime();
+
 					if (c.GetString(c.GetColumnIndexOrThrow("address")) == bankName)
 					{
-						sw.WriteLine(c.GetString(c.GetColumnIndexOrThrow("body")));
+						sw.WriteLine($"{smsDate.ToString(CultureInfo.InvariantCulture)}|{c.GetString(c.GetColumnIndexOrThrow("body"))}");
 						totalSMSLoaded++;
 					}
 				}
