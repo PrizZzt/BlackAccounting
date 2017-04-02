@@ -8,15 +8,14 @@ namespace BlackAccounting
 	public partial class MainForm : Form
 	{
 		private Accounting _accounting;
-		private Settings _settings;
 
 		public MainForm()
 		{
 			InitializeComponent();
 			gvMain.AutoGenerateColumns = false;
 
-			_settings = new Settings();
-			_accounting = new Accounting(_settings);
+			Settings.Load();
+			_accounting = new Accounting(Settings.Instance);
 
 			gridSwitchData(null, null);
 		}
@@ -25,11 +24,11 @@ namespace BlackAccounting
 		{
 			gvMain.EndEdit();
 
-			_accounting.ProtectedSave(_settings.DataFilePath, _settings.Password, _settings.Iv);
-			if (string.IsNullOrEmpty(_settings.BackupFilePath) == false)
-				_accounting.Save(_settings.BackupFilePath);
+			Settings.Save();
 
-			_settings.Save();
+			_accounting.ProtectedSave(Settings.Instance.DataFilePath, Settings.Instance.Password, Settings.Instance.Iv);
+			if (string.IsNullOrEmpty(Settings.Instance.BackupFilePath) == false)
+				_accounting.Save(Settings.Instance.BackupFilePath);
 		}
 
 		private void tsbtnAddRecord_Click(object sender, EventArgs e)
@@ -104,10 +103,12 @@ namespace BlackAccounting
 					}
 				};
 
-				gvMain.DataSource = _settings.Values;
+				Settings.PrepareToEdit();
+				gvMain.DataSource = Settings.EditValues;
 			}
 			else
 			{
+				Settings.EndEdit();
 				if (tsbtnTypeEdit.Checked)
 				{
 					columns = new DataGridViewColumn[]
@@ -311,7 +312,13 @@ namespace BlackAccounting
 			if (MessageBox.Show("Вы уверены, что хотите восстановить данные из бэкапа", "Внимание", MessageBoxButtons.OKCancel) != DialogResult.OK)
 				return;
 
-			_accounting.Load(_settings.BackupFilePath, true);
+			_accounting.Load(Settings.Instance.BackupFilePath, true);
+
+			if (_accounting.Backup == null)
+			{
+				MessageBox.Show("Бэкап еще не существует", "Внимание");
+				return;
+			}
 
 			if (_accounting.Data.LastSaveTime > _accounting.Backup.LastSaveTime)
 			{

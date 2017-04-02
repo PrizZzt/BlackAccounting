@@ -31,7 +31,7 @@ namespace BlackAccountingMobileAssistant
 
 			etBankName.Text = CrossSettings.Current.GetValueOrDefault("BankName", "SDM-BANK");
 			etTargetFolder.Text = CrossSettings.Current.GetValueOrDefault("TargetFolder", Android.OS.Environment.ExternalStorageDirectory.Path);
-			etFileName.Text = CrossSettings.Current.GetValueOrDefault("FileName", "blackAccounting.data");
+			etFileName.Text = CrossSettings.Current.GetValueOrDefault("FileName", "blackAccounting.txt");
 
 			btnLoad.Click += (s, e) =>
 			{
