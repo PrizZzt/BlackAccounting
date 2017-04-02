@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlackAccounting.Properties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ namespace BlackAccounting
 		public MainForm()
 		{
 			InitializeComponent();
+			Icon = Resources.pirate_icon;
 			gvMain.AutoGenerateColumns = false;
 
 			Settings.Load();

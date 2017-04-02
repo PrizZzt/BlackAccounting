@@ -115,7 +115,7 @@
 			this.Controls.Add(this.btnAdd);
 			this.Controls.Add(this.lblExplanation);
 			this.Name = "EnterForm";
-			this.Text = "EnterForm";
+			this.Text = "Текстовый ввод";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

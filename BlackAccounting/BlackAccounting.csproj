@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\pirate_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -126,6 +129,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\checked-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pirate_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_green_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar_chart_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

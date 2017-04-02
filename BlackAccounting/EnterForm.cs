@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
+using BlackAccounting.Properties;
 
 namespace BlackAccounting
 {
@@ -15,6 +16,7 @@ namespace BlackAccounting
 		public EnterForm()
 		{
 			InitializeComponent();
+			Icon = Resources.add_green_icon;
 
 			Values.Clear();
 		}

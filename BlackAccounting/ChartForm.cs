@@ -1,7 +1,6 @@
 ﻿using BlackAccounting.Properties;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -17,6 +16,7 @@ namespace BlackAccounting
 		public ChartForm(AccountingData accountingData)
 		{
 			InitializeComponent();
+			Icon = Resources.bar_chart_icon;
 
 			_series = chrtMain.Series.Add("");
 			_data = accountingData;
