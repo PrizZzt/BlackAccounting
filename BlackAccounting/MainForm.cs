@@ -51,6 +51,8 @@ namespace BlackAccounting
 
 			if (firstRow >= 0)
 				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
+
+      tsslRowsCount.Text = $"Количество строк : {gvMain.Rows.Count}";
 		}
 
 		private void tsbtnDelRecord_Click(object sender, EventArgs e)
@@ -78,7 +80,9 @@ namespace BlackAccounting
 				gvMain.FirstDisplayedScrollingRowIndex = firstRow;
 
 			_accounting.Data.UpdateData();
-		}
+
+      tsslRowsCount.Text = $"Количество строк : {gvMain.Rows.Count}";
+    }
 
 		private void gridSwitchData(object sender, EventArgs e)
 		{
@@ -250,7 +254,9 @@ namespace BlackAccounting
 			}
 
 			SetButtonsAvailability();
-		}
+
+      tsslRowsCount.Text = $"Количество строк : {gvMain.Rows.Count}";
+    }
 
 		private void tsbtnChart_Click(object sender, EventArgs e)
 		{
@@ -306,8 +312,10 @@ namespace BlackAccounting
 					_accounting.AddRecord(item);
 
 				tsbtnUpdate_Click(null, null);
-			}
-		}
+      }
+
+      tsslRowsCount.Text = $"Количество строк : {gvMain.Rows.Count}";
+    }
 
 		private void tsbtnFromBackup_Click(object sender, EventArgs e)
 		{
@@ -333,7 +341,9 @@ namespace BlackAccounting
 
 			_accounting.Data = _accounting.Backup;
 			tsbtnUpdate_Click(null, null);
-		}
+
+      tsslRowsCount.Text = $"Количество строк : {gvMain.Rows.Count}";
+    }
 
 		private void tsbtnSave_Click(object sender, EventArgs e)
 		{

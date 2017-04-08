@@ -46,6 +46,21 @@
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/fileNameEditText" />
+    <TextView
+        p1:text="Начало периода выгрузки"
+        p1:textAppearance="?android:attr/textAppearanceSmall"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/startLoadTextView"
+        p1:paddingBottom="10px"
+        p1:paddingLeft="10px"
+        p1:paddingRight="10px"
+        p1:paddingTop="10px" />
+    <EditText
+        p1:inputType="datetime"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/startLoadEditText" />
     <Button
         p1:text="Выгрузить"
         p1:layout_width="match_parent"

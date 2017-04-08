@@ -75,8 +75,14 @@ namespace BlackAccountingMobileAssistant
 			// aapt resource value: 0x7f050000
 			public const int linearLayout = 2131034112;
 			
+			// aapt resource value: 0x7f050009
+			public const int loadButton = 2131034121;
+			
+			// aapt resource value: 0x7f050008
+			public const int startLoadEditText = 2131034120;
+			
 			// aapt resource value: 0x7f050007
-			public const int loadButton = 2131034119;
+			public const int startLoadTextView = 2131034119;
 			
 			// aapt resource value: 0x7f050004
 			public const int targetFolderEditText = 2131034116;
